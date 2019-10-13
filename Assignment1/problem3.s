@@ -1,23 +1,20 @@
-# X = Y + Z; -> Y + Z
-# Y = X + Z; -> Y + 2 * Z
-# T = X - Y; -> -Z
+# X = Y + Z;
+# Y = X + Z;
+# T = X - Y;
 
 # 0-address machine implementation
 # Stack is represented as [ , , , <- PUSH&POP here
-# Assumed initial memory [X, Y, Z, T
-# $t7 is as dummy address for removing values from stack
-POP $t7   # remove T from stack, memory: [X, Y, Z
-POP $t0   # save Z to temp0, memory: [X, Y
-PUSH $t0  # push Z back to stack, memory: [X, Y, Z
-ADD $t1   # save X = Y + Z to temp1, memory: [X
-POP $t7   # remove old X from stack, memory: [
-PUSH $t1  # push X (Y + Z) to stack, memory: [X
-PUSH $t0  # push Z to stack, memory [X, Z
-ADD $t2   # save Y = X + Z to temp2, memory: [
-PUSH $t1  # push X to stack, memory: [X
-PUSH $t2  # push Y to stack, memory: [X, Y
-SUB $t3   # save T = X - Y to temp3, memory: [
-PUSH $t1  # push X to stack, memory: [X
-PUSH $t2  # push Y to stack, memory: [X, Y 
-PUSH $t0  # push Z to stack, memory: [X, Y, Z
-PUSH $t3  # push T to stack, memory: [X, Y, Z, T
+# Assumed X, Y, Z, T stored in $s0, $s1, $s2, $s3, respectively
+
+PUSH  $s1   # Push Y to stack, Stack: [Y
+PUSH  $s2   # Push Z to stack, Stack: [Y, Z
+ADD         # Pop two values, push val1 + val2 back to stack, Stack: [X(Y + Z)
+POP   $s0   # Pop X and save it back to $s0, Stack: [
+PUSH  $s0   # Push X to stack, Stack: [X
+PUSH  $s2   # Push Z to stack, Stack: [X, Z
+ADD         # Pop two values, push val1 + val2 back to stack, Stack: [Y(X + Z)
+POP   $s0   # Pop Y and save it back to $s1, Stack: [
+PUSH  $s0   # Push X to stack, Stack: [X
+PUSH  $s1   # Push Y to stack, Stack: [X, Y
+SUB         # Pop two values, push val1 - val2 back to stack, Stack: [T(X - Y)
+POP   $s3   # Pop Z and save it back to $s3, Stack: [
