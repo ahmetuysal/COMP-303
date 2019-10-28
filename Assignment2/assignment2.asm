@@ -47,19 +47,21 @@ main:
    
    # Load [8, 2, 4, 6, 11, 35, 12, -5, 2] in to memory
    # -5 2 2 4 6 8 11 12 35
+   
    li $t0 8
    sw $t0, 0($s0)
+
 
    li $t0 2
    sw $t0, 4($s0)
    
-   li $t0 4
+   li $t0 2
    sw $t0, 8($s0)
    
    li $t0 6
    sw $t0, 12($s0)
    
-   li $t0 11
+   li $t0 2
    sw $t0, 16($s0)
    
    li $t0 35
@@ -140,8 +142,12 @@ remove_duplicates:
 
 li $s2, -1
 
+
 remove_loop:
+
 addi $s2, $s2, 1
+
+remove_loop_after_index_inc:
 
 sll $t0, $s2, 2 
 add $t0, $t0, $s0
@@ -151,7 +157,7 @@ lw $s4, 4($t0)
 
 bne $s3, $s4, remove_loop
 
-addi $t1, $s2, 1
+addi $t1, $s2, 0
 
 remove_inner_loop:
 
@@ -167,8 +173,12 @@ blt $t1, $s1, remove_inner_loop
 
 addi $s1, $s1, -1
 
-blt $s2, $s1 remove_loop
-            
+blt $s2, $s1 remove_loop_after_index_inc
+
+# Increment array size by one since it is decremented an extra time 
+addi $s1, $s1, 1
+
+                                                                        
    ##################  YOUR CODE  ####################
 
 # Print sorted list with and without duplicates
@@ -188,12 +198,22 @@ sll $t1, $t0, 2
 add $t1, $t1, $s0
 lw $t1, 0($t1)
 add $a0, $t1, $zero
+
+li $v0, 1
+syscall
+
+li $v0, 11
+li $a0, 32
 syscall
 
 addi $t0, $t0, 1
 
 blt $t0, $s1, print_loop
    
+li $v0, 11
+li $a0, 10
+syscall
+
 j remove_duplicates
                 
 print_wo_dup:
@@ -201,6 +221,29 @@ print_wo_dup:
    ##################  YOUR CODE  ####################
 
 # Perform reduction
+li $t0, 0
+  
+print_wo_loop:   
+
+sll $t1, $t0, 2
+
+add $t1, $t1, $s0
+lw $t1, 0($t1)
+add $a0, $t1, $zero
+li $v0, 1
+syscall
+
+li $v0, 11
+li $a0, 32
+syscall
+
+addi $t0, $t0, 1
+
+blt $t0, $s1, print_wo_loop
+
+li $v0, 11
+li $a0, 10
+syscall
    
    ##################  YOUR CODE  ####################
 
