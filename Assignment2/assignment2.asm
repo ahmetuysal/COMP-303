@@ -1,7 +1,7 @@
 #####################################################################
 #                                                                   #
-# Name: Ahmet Uysal - Furkan Sahbaz                                 #
-# KUSIS ID: 60780 - 60124                                           #
+# Name: Ahmet Uysal                                                 #
+# KUSIS ID: 60780                                                   #
 #####################################################################
 
 # This file serves as a template for creating 
@@ -134,14 +134,46 @@ j inner_loop
                
 sort_data_end:
 
+j print_w_dup
 
 remove_duplicates:
-   
+
+li $s2, -1
+
+remove_loop:
+addi $s2, $s2, 1
+
+sll $t0, $s2, 2 
+add $t0, $t0, $s0
+
+lw $s3, 0($t0)
+lw $s4, 4($t0)
+
+bne $s3, $s4, remove_loop
+
+addi $t1, $s2, 1
+
+remove_inner_loop:
+
+sll $t0, $t1, 2
+add $t0, $t0, $s0
+
+lw $t2 4($t0)
+sw $t2, 0($t0)
+
+addi $t1, $t1, 1
+
+blt $t1, $s1, remove_inner_loop
+
+addi $s1, $s1, -1
+
+blt $s2, $s1 remove_loop
+            
    ##################  YOUR CODE  ####################
 
 # Print sorted list with and without duplicates
 
-
+j print_wo_dup
 
 print_w_dup:
 
@@ -162,6 +194,7 @@ addi $t0, $t0, 1
 
 blt $t0, $s1, print_loop
    
+j remove_duplicates
                 
 print_wo_dup:
 
