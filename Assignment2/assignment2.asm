@@ -76,9 +76,55 @@ main:
    li $t0 2
    sw $t0, 32($s0)
    
-   # Check for first argument to be n
- 
    
+   # In order to read a string input from the user.
+   li $v0, 8 
+   la $a0, input_data
+   li $a1, 8
+   syscall
+   
+   lb $t0, 0($a0)
+   li $t1, 45
+   # Check for first character to be -
+   bne $t0, $t1, Arg_Err
+   
+   lb $t0, 1($a0)
+   li $t1, 110
+   # Check for second character to be n
+   bne $t0, $t1, Arg_Err
+
+   lb $t0, 2($a0)
+   li $t1, 32
+   # Check for third character to be " "
+   bne $t0, $t1, Arg_Err
+   
+li $s1, 0
+addi $t2, $a0, 3
+
+
+parse_number_count:
+   lb $t0, 0($t2)
+   
+   # Check for str
+   beqz $t0, parse_number_count_exit
+            
+   # Check for newline
+   beq $t0, 10, parse_number_count_exit
+            
+   # Check for numeric char bounds
+   blt $t0, 48, Arg_Err
+   bgt $t0, 57, Arg_Err
+
+   # get numeric value of char
+   addi $t0, $t0, -48
+   
+   mul $s1, $s1, 10
+   add $s1, $s1, $t0
+   
+   addi $t2, $t2, 1
+   j parse_number_count
+   
+parse_number_count_exit: 
 
 Data_Input:
    # Get integers from user as per value of n
