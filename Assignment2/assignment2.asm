@@ -45,38 +45,6 @@ main:
    
    addi $s1, $zero, 9
    
-   # Load [8, 2, 4, 6, 11, 35, 12, -5, 2] in to memory
-   # -5 2 2 4 6 8 11 12 35
-   
-   li $t0 8
-   sw $t0, 0($s0)
-
-
-   li $t0 2
-   sw $t0, 4($s0)
-   
-   li $t0 2
-   sw $t0, 8($s0)
-   
-   li $t0 6
-   sw $t0, 12($s0)
-   
-   li $t0 2
-   sw $t0, 16($s0)
-   
-   li $t0 35
-   sw $t0, 20($s0)
-   
-   li $t0 12
-   sw $t0, 24($s0)
-   
-   li $t0 -5
-   sw $t0, 28($s0)
-
-   li $t0 2
-   sw $t0, 32($s0)
-   
-   
    # In order to read a string input from the user.
    li $v0, 8 
    la $a0, input_data
@@ -100,7 +68,6 @@ main:
    
 li $s1, 0
 addi $t2, $a0, 3
-
 
 parse_number_count:
    lb $t0, 0($t2)
@@ -127,12 +94,21 @@ parse_number_count:
 parse_number_count_exit: 
 
 Data_Input:
-   # Get integers from user as per value of n
+   # Get integrs from user as per value of n
    
-   ##################  YOUR CODE  ####################   
-   
+li $t0, 0
 
 
+
+read_number:
+li $v0, 5
+syscall
+sll $t1, $t0, 2
+add $t1, $t1, $s0
+sw $v0, 0($t1)
+addi $t0, $t0, 1   
+
+blt $t0, $s1, read_number
 
 # Insertion sort begins here
 sort_data:
