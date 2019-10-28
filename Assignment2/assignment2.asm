@@ -177,17 +177,13 @@ blt $s2, $s1 remove_loop_after_index_inc
 
 # Increment array size by one since it is decremented an extra time 
 addi $s1, $s1, 1
-
-                                                                        
-   ##################  YOUR CODE  ####################
-
+                                                                    
 # Print sorted list with and without duplicates
 
 j print_wo_dup
 
 print_w_dup:
 
-   ##################  YOUR CODE  ####################
 li $v0, 1
 li $t0, 0
   
@@ -218,9 +214,6 @@ j remove_duplicates
                 
 print_wo_dup:
 
-   ##################  YOUR CODE  ####################
-
-# Perform reduction
 li $t0, 0
   
 print_wo_loop:   
@@ -244,13 +237,28 @@ blt $t0, $s1, print_wo_loop
 li $v0, 11
 li $a0, 10
 syscall
-   
-   ##################  YOUR CODE  ####################
+
+# Perform reduction
+
+li $t3, 0
+
+# index for loop
+li $t0, 0
+
+reduction_loop:
+sll $t1, $t0, 2
+add $t1, $t1, $s0
+lw $t2, 0($t1)
+add $t3, $t3, $t2
+
+addi $t0, $t0, 1
+
+blt $t0, $s1, reduction_loop
 
 # Print sum
   li  $v0, 1
   addi $a0, $t3, 0      # $t3 contains the sum  
-  # syscall
+  syscall
 
    j Exit 
    
