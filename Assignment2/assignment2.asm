@@ -1,7 +1,7 @@
 #####################################################################
 #                                                                   #
-# Name: Ahmet Uysal                                                 #
-# KUSIS ID: 60780                                                   #
+# Name: Ahmet Uysal - Furkan Sahbaz                                 #
+# KUSIS ID: 60780 - 60124                                           #
 #####################################################################
 
 # This file serves as a template for creating 
@@ -42,10 +42,11 @@ main:
    # Check for command line arguments count and validity
   
    la $s0, input_data
-   addi $s0, $zero, 9
+   
+   addi $s1, $zero, 9
    
    # Load [8, 2, 4, 6, 11, 35, 12, -5, 2] in to memory
-   
+   # -5 2 2 4 6 8 11 12 35
    li $t0 8
    sw $t0, 0($s0)
 
@@ -108,21 +109,21 @@ addi $s2, $s2, 1
 
 beq $s2, $s1, sort_data_end
 
-srl $t0, $s2, 2
+sll $t0, $s2, 2
 add $t1, $t0, $s0
 lw $s3 0($t1)
 # addi $s2 $s2 1
 
 addi $t2, $s2, -1
 inner_loop:
-srl $t3, $t2, 2
+sll $t3, $t2, 2
 add $t4, $t3, $s0
 lw $s4, 0($t4)
 
 bge $s3, $s4, aux_loop
 
 sw $s3, 0($t4)
-sw $s4, 0($t1)
+sw $s4, 4($t4)
 
 beqz $t2, aux_loop
 
@@ -145,7 +146,23 @@ remove_duplicates:
 print_w_dup:
 
    ##################  YOUR CODE  ####################
+li $v0, 1
+li $t0, 0
+  
+print_loop:   
+
+sll $t1, $t0, 2
+
+add $t1, $t1, $s0
+lw $t1, 0($t1)
+add $a0, $t1, $zero
+syscall
+
+addi $t0, $t0, 1
+
+blt $t0, $s1, print_loop
    
+                
 print_wo_dup:
 
    ##################  YOUR CODE  ####################
@@ -157,7 +174,7 @@ print_wo_dup:
 # Print sum
   li  $v0, 1
   addi $a0, $t3, 0      # $t3 contains the sum  
-  syscall
+  # syscall
 
    j Exit 
    
