@@ -1,4 +1,6 @@
 # COMP 303 Assignment 2 (Insertion Sort Using MIPS Assembly)
+## Ahmet Uysal - Furkan Sahbaz
+### 60780 - 60124 
 
 A MIPS Assembly program that sorts an array using the insertion sort algorithm, removes the duplicates (if there are any) from that array, and finally sums over all elements of the resulting array was implemented for this project. Size and elements of the array are taken as inputs from the user.
 
