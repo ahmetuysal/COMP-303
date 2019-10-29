@@ -32,3 +32,12 @@ Input integers
 34
 -49
 ``` 
+
+## Sorting the Array Using Insertion Sort
+
+The generated array needs to be sorted by implementing the insertion sort algorithm. In order to do this, in a loop until the element at the last index of the array is reached, the index of the current element being inspected is first obtained. Then, by adding this index to the base address of the array ($s0), the element at this index is accessed. Afterwards, within another loop, in each iteration, the index and the value of the element before the current element is obtained and their values are compared. As long as the value of the current element is less than the previous element, these elements are swapped. Then, the resulting sorted array is printed. Applying this algorithm to the array provided above should give the following output:
+
+```bash
+Sorted list
+-49 -5 1 1 2 2 3 7 34 98
+``` 
