@@ -17,10 +17,10 @@
 .data
 
 arg_err_msg:       .asciiz   "Argument error"
-input_msg:         .asciiz   "Input integers"
-input_msg_sl: 	   .asciiz   "\nSorted list\n"
-input_msg_rsl: 	   .asciiz   "\nSorted list without duplicates\n"
-input_msg_sum:     .asciiz   "\nList sum\n"
+input_msg:         .asciiz   "Input integers\n"
+input_msg_sl: 	   .asciiz   "Sorted list\n"
+input_msg_rsl: 	   .asciiz   "Sorted list without duplicates\n"
+input_msg_sum:     .asciiz   "List sum\n"
 input_data:        .align    2   # Align on word boundary
 		   .space    MAX_LEN_BYTES #Define length of input list
 		    	    
@@ -98,6 +98,9 @@ parse_number_count_exit:
 
 Data_Input:
    # Get integrs from user as per value of n
+   la $a0, input_msg    
+   li $v0, 4		  
+   syscall
    # Initially etting counter to zero
    li $t0, 0
 
