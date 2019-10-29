@@ -74,10 +74,10 @@ parse_number_count:
    # Getting current digit
    lb $t0, 0($t2)
 
-   # Check for str
+   # Check for string terminator \0
    beqz $t0, parse_number_count_exit
             
-   # Check for newline
+   # Check for newline character
    beq $t0, 10, parse_number_count_exit
             
    # Check for numeric char bounds
@@ -87,10 +87,11 @@ parse_number_count:
    # Get numeric value of char
    addi $t0, $t0, -48
    
-   # Moving to the next digit 
+   # Update array length
    mul $s1, $s1, 10
    add $s1, $s1, $t0
    
+   # Moving to the next digit
    addi $t2, $t2, 1
    j parse_number_count
    
@@ -105,6 +106,9 @@ Data_Input:
    li $t0, 0
 
    read_number:
+
+   bge $t0, $s1, read_number_end
+
    li $v0, 5
    syscall
    # Positioning the element in the array
@@ -114,7 +118,9 @@ Data_Input:
    sw $v0, 0($t1)
    addi $t0, $t0, 1   
 
-   blt $t0, $s1, read_number
+   j read_number
+
+   read_number_end:
 
 # Insertion sort begins here
 sort_data:
@@ -135,25 +141,35 @@ sort_data:
 aux_loop: 
    addi $s2, $s2, 1
 
-   beq $s2, $s1, sort_data_end
+   bge $s2, $s1, sort_data_end
 
+   # Calculate memory address of index i
    sll $t0, $s2, 2
    add $t1, $t0, $s0
-   # Loading current element at index i
+
+
+   # Load current element at index i
    lw $s3 0($t1)
-   # Getting i-1
+
+   # Set j = i-1
    addi $t2, $s2, -1
 
 inner_loop:
+
+   # Calculate memory address of index j
    sll $t3, $t2, 2
    add $t4, $t3, $s0
+   # Load current element at index i
    lw $s4, 0($t4)
-   # Looping while the current element at index i is less than the current element at index j
+
+   # Jump to next i index if arr[i] already >= arr[j] (no need for swaps)
    bge $s3, $s4, aux_loop
+
    # Swapping elements
    sw $s3, 0($t4)
    sw $s4, 4($t4)
-   # Looping until j = 0 
+
+   # Jump to next i index if j = 0 
    beqz $t2, aux_loop
 
    addi $t2, $t2, -1
@@ -218,6 +234,9 @@ print_w_dup:
    li $t0, 0
      
 print_loop:   
+
+   bge $t0, $s1, print_loop_end
+
    # Looping through the array and printing the content
    sll $t1, $t0, 2
 
@@ -234,11 +253,14 @@ print_loop:
 
    addi $t0, $t0, 1
 
-   blt $t0, $s1, print_loop
+   j print_loop
+
+print_loop_end:
    # New line after the whole array has been printed   
    li $v0, 11
    li $a0, 10
    syscall
+
 
 j remove_duplicates
                 
@@ -247,6 +269,9 @@ print_wo_dup:
    li $t0, 0
   
 print_wo_loop:   
+   
+   bge $t0, $s1, print_wo_dup_end
+   
    # Looping through the duplicates-removed array and printing the content
    sll $t1, $t0, 2
 
@@ -262,14 +287,15 @@ print_wo_loop:
 
    addi $t0, $t0, 1
 
-   blt $t0, $s1, print_wo_loop
+   j print_wo_loop
+   
+print_wo_dup_end:
    # New line after the whole array has been printed 
    li $v0, 11
    li $a0, 10
    syscall
 
 # Perform reduction
-
    li $t3, 0
 
 # index for loop
@@ -277,6 +303,9 @@ print_wo_loop:
 
 reduction_loop:
    # Looping through the array and summing its content
+   
+   bge $t0, $s1, reduction_end
+   
    sll $t1, $t0, 2
    add $t1, $t1, $s0
    lw $t2, 0($t1)
@@ -284,7 +313,9 @@ reduction_loop:
 
    addi $t0, $t0, 1
 
-   blt $t0, $s1, reduction_loop
+    j reduction_loop
+
+reduction_end:
 
    # Print sum
    la $a0, input_msg_sum      
