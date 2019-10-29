@@ -7,7 +7,7 @@ A MIPS Assembly program that sorts an array using the insertion sort algorithm, 
 Inputs are taken from the user by a certain syntax. 
 
 In order to define the length of the array, the user should enter
-'''bash
+```bash
 -n 10
-''' 
+``` 
 to the command line.
