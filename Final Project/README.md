@@ -142,12 +142,14 @@ Last four bits of the ALUOp indicate ALU operations
 ### Output Pins
 
 | Name     | Length (bits) | Description         |
-| -------- | ------------- | ------------------- |
-| RegDst   | 1             |                     |
-| RegWrite | 1             |                     |
-| ALUOp    | 6             | ALU operation code, |
-|          | 1             |                     |
-|          | 1             |                     |
-|          | 1             |                     |
-|          | 1             |                     |
-|          | 1             |                     |
+| -------- | ------------- | ---------------------------------------------------- |
+| RegDst   | 1             | Chooses between rt and rt to perform operations with |
+| RegWrite | 1             | Enables writing on registers                         |
+| ALUOp    | 6             | ALU operation code,                                      |
+| ALUSrc   | 1             | Determines whether the second input to the ALU will be from Immediate region or Read Data 2 |
+| MemToReg | 1             |                     |
+| MemRead  | 1             |                     |
+| MemWrite | 1             |                     |
+| Branch   | 1             |                     |
+| PCSrc    | 1             |                     |
+
