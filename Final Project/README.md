@@ -227,3 +227,11 @@ Last four bits of the ALUOp indicate ALU operations
 ![Vector Addition & Scaling](images/mem_final.png "Memory File State after Program Execution")
 
 ### Squaring
+
+#### Initial State of Register File
+
+![Squaring](images/sqr_reg_init.png "Register File State before Program Execution")
+
+#### Final State of Register File
+
+![Squaring](images/sqr_reg_fin.png "Register File State after Program Execution")
