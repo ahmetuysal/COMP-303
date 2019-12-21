@@ -66,7 +66,7 @@ First two bits of the ALUOp indicate branch comparison operations:
 | ALUOp  | Operation               | Description                 |
 | ------ | ----------------------- | --------------------------- |
 | 01XXXX | zero = Input1 == Input2 | zero = 1 if Input1 = Input2 |
-| 10XXXX | zero = Input1 == 0      | zero = 1 if Input1 = 0      |
+| 10XXXX | zero = Input1 <= 0      | zero = 1 if Input1 <= 0     |
 
 Last four bits of the ALUOp indicate ALU operations
 
