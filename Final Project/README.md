@@ -25,6 +25,7 @@ All subparts of our CPU design are described below, with all of their inputs, ou
 | Instruction         | Opcode | Type | Operation                  |
 | ------------------- | ------ | ---- | -------------------------- |
 | `add rd, rs, rt`    | 000000 | R    | rd = rs + rt               |
+| `sub rd, rs, rt`    | 000001 | R    | rd = rs - rt               |
 | `mult rs, rt`       | 000010 | R    | hi;lo = rs\*rt             |
 | `and rd, rs, rt`    | 000011 | R    | rd = rs & rt               |
 | `or rd, rs, rt`     | 000100 | R    | rd = rs \| rt              |
@@ -177,26 +178,26 @@ Last four bits of the ALUOp indicate ALU operations
 | MemToReg | 1             | Determines whether the write data will be taken direclty from ALU result or the data memory |
 | MemRead  | 1             | Enables data memory reads                                                                   |
 | MemWrite | 1             | Enables data memory writes                                                                  |
-| Branch   | 1             | Indicates that PC value may come from a conditional branch operation                        |
+| Branch   | 1             | Indicates that PC value may come from a branch operation                                    |
 | PCSrc    | 1             | Indicates that PC value will come from an unconditional branch operation                    |
 
 ### Output Pin Values According to opcode
 
-| opcode | RegDst | RegWrite | ALUOp | ALUSrc | MemToReg | MemRead | MemWrite | Branch | PCSrc |
-| ------ | ------ | -------- | ----- | ------ | -------- | ------- | -------- | ------ | ----- |
-| 000000 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000010 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000011 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000100 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000001 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000101 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000110 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 000111 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001000 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001001 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001010 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001011 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001100 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001101 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001110 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
-| 001111 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| opcode | RegDst | RegWrite | ALUOp  | ALUSrc | MemToReg | MemRead | MemWrite | Branch | PCSrc |
+| ------ | ------ | -------- | ------ | ------ | -------- | ------- | -------- | ------ | ----- |
+| 000000 | 1      | 1        | 000000 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 000001 | 1      | 1        | 000001 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 000010 | 1      | 0        | 000010 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 000011 | 1      | 1        | 000011 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 000100 | 1      | 1        | 000100 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 000101 | 0      | 1        | 000101 | 1      | 0        | 0       | 0        | 0      | 0     |
+| 000110 | 1      | 1        | 000110 | 1      | 0        | 0       | 0        | 0      | 0     |
+| 000111 | 1      | 1        | 000111 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 001000 | 1      | 1        | 001000 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 001001 | 1      | 1        | 001001 | 0      | 0        | 0       | 0        | 0      | 0     |
+| 001010 | 0      | 1        | 001010 | 1      | 1        | 1       | 0        | 0      | 0     |
+| 001011 | 0      | 0        | 001011 | 1      | 1        | 0       | 1        | 0      | 0     |
+| 001100 | 1      | 0        | 001100 | 0      | 0        | 0       | 0        | 1      | 0     |
+| 001101 | 1      | 0        | 001101 | 1      | 0        | 0       | 0        | 1      | 0     |
+| 001110 | 1      | 0        | 001110 | 1      | 0        | 0       | 0        | 1      | 1     |
+| 001111 | 1      | 0        | 001111 | 1      | 0        | 0       | 0        | 0      | 0     |
