@@ -166,3 +166,24 @@ Last four bits of the ALUOp indicate ALU operations
 | MemWrite | 1             | Enables data memory writes                                                                  |
 | Branch   | 1             | Indicates that PC value may come from a conditional branch operation                        |
 | PCSrc    | 1             | Indicates that PC value will come from an unconditional branch operation                    |
+
+### Output Pin Values According to opcode
+
+| opcode | RegDst | RegWrite | ALUOp | ALUSrc | MemToReg | MemRead | MemWrite | Branch | PCSrc |
+| ------ | ------ | -------- | ----- | ------ | -------- | ------- | -------- | ------ | ----- |
+| 000000 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000010 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000011 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000100 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000001 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000101 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000110 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 000111 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001000 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001001 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001010 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001011 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001100 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001101 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001110 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
+| 001111 | X      | X        | X     | X      | X        | X       | X        | X      | X     |
