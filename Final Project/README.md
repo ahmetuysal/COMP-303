@@ -4,6 +4,10 @@
 
 <span style=font-size:1.5em;>**Student IDs:** 60780 - 60124</span>
 
+## CPU Design
+
+![CPU](images/CPU.png "Central Processing Unit Circuit")
+
 ## Supported Instructions
 
 | Instruction       | Opcode | Type | Operation                  |
@@ -26,6 +30,8 @@
 | **sqr rs**        | 001111 | R    | hi;lo = rs<sup>2</sup>     |
 
 ## Register File
+
+![Register File](images/register-file.png "Register File Circuit")
 
 | Register Number | Conventional Name | Description                                  |
 | --------------- | ----------------- | -------------------------------------------- |
@@ -52,6 +58,8 @@
 | Read Data 2 | 16            | Data that is read from second read address |
 
 ## ALU
+
+![ALU](images/ALU.png "Arithmetic Logic Unit Circuit")
 
 First two bits of the ALUOp indicate branch comparison operations:
 
@@ -132,6 +140,8 @@ Last four bits of the ALUOp indicate ALU operations
 | C<sub>out</sub> | 1             |             |
 
 ## Control Unit
+
+![Control Unit](images/control-unit.png "Control Unit Circuit")
 
 ### Input Pins
 
