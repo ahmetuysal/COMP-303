@@ -10,6 +10,16 @@
 
 ## Design Description
 
+Our design uses the same instruction format with MIPS ISA (32-bit long instructions). We only utilize lower 4 bits of addresses,
+since we only have 16 registers. Also, since our PC only consists of 16 bits, we directly provide the lower 16 bits of the label address in jump operations.
+Our instruction memory is addressed by 32 bits. Therefore, we increment the program counter by 1 instead of 4, and we do not multiply the
+given jump address by 4.
+
+The control signals that are crucial for operations to be performed are provided by the Control Unit by checking the instructions themselves. After the control
+signals are provided, all parts of pur CPU design works accordingly, and by taking cautions against overwriting any necessary data.
+
+All subparts of our CPU design are described below, with all of their inputs, outputs, and tables provided with their corresponding descriptions.
+
 ## Supported Instructions
 
 | Instruction         | Opcode | Type | Operation                  |
@@ -29,9 +39,12 @@
 | `beq rs, rt, label` | 001100 | I    | if(rs == rt) jump to label |
 | `blez rs, label`    | 001101 | I    | if(rs <= 0) jump to label  |
 | `j label`           | 001110 | J    | Jump to label              |
-| `**sqr rs**`        | 001111 | R    | hi;lo = rs<sup>2</sup>     |
+| **`sqr rs`**        | 001111 | R    | hi;lo = rs<sup>2</sup>     |
 
 ## Custom Instruction: `sqr`
+
+Our custom instruction `sqr` works in a very similar fashion to the `mult` operation. This time, the provided register is multiplied by itself, instead of another
+register. The result is again stored in hi and lo registers that can be found in the ALU, and can be read from them.
 
 ## Register File
 
