@@ -8,6 +8,8 @@
 
 ![CPU](images/CPU.png "Central Processing Unit Circuit")
 
+## Design Description
+
 ## Supported Instructions
 
 | Instruction       | Opcode | Type | Operation                  |
@@ -28,6 +30,8 @@
 | blez rs, label    | 001101 | I    | if(rs <= 0) jump to label  |
 | j label           | 001110 | J    | Jump to label              |
 | **sqr rs**        | 001111 | R    | hi;lo = rs<sup>2</sup>     |
+
+## Custom Instruction: **sqr**
 
 ## Register File
 
@@ -70,19 +74,19 @@ First two bits of the ALUOp indicate branch comparison operations:
 
 Last four bits of the ALUOp indicate ALU operations
 
-| ALUOp  | Operation                 | Description            |
-| ------ | ------------------------- | ---------------------- |
-| XX0000 | Result = Input1 + Input 2 | ASDF                   |
-| XX0001 | Result = Input1 + Input 2 | ASDF                   |
-| XX0010 | Result = Input1 + Input 2 | ASDF                   |
-| XX0011 | Result = Input1 + Input 2 | ASDF                   |
-| XX0100 | Result = Input1 + Input 2 | ASDF                   |
-| XX0101 | Result = Input1 + Input 2 | ASDF                   |
-| XX0110 | Result = Input1 + Input 2 | ASDF                   |
-| XX0111 | Result = Input1 + Input 2 | ASDF                   |
-| XX1000 | Result = Input1 + Input 2 | ASDF                   |
-| XX1001 | Result = Input1 + Input 2 | ASDF                   |
-| XX1111 | hi;lo = rs<sup>2</sup>    | hi;lo = rs<sup>2</sup> |
+| ALUOp  | Operation                   |
+| ------ | --------------------------- |
+| XX0000 | Result = Input1 + Input 2   |
+| XX0001 | Result = Input1 - Input 2   |
+| XX0010 | hi;lo = Input 1 \* Input 2  |
+| XX0011 | Result = Input1 ∧ Input 2   |
+| XX0100 | Result = Input1 ∨ Input 2   |
+| XX0101 | Result = Input1 + Immidate  |
+| XX0110 | Result = Input 1 << Input 2 |
+| XX0111 | Result = Input1 < Input 2   |
+| XX1000 | Result = hi                 |
+| XX1001 | Result = lo                 |
+| XX1111 | hi;lo = Input 1<sup>2</sup> |
 
 ### Input Pins
 
@@ -108,18 +112,18 @@ Last four bits of the ALUOp indicate ALU operations
 
 ##### Input Pins
 
-| Name           | Length (bits) | Description |
-| -------------- | ------------- | ----------- |
-| A              | 1             |             |
-| B              | 1             |             |
-| C<sub>in</sub> | 1             |             |
+| Name           | Length (bits) |
+| -------------- | ------------- |
+| A              | 1             |
+| B              | 1             |
+| C<sub>in</sub> | 1             |
 
 ##### Output Pins
 
-| Name            | Length (bits) | Description |
-| --------------- | ------------- | ----------- |
-| Sum             | 1             |             |
-| C<sub>out</sub> | 1             |             |
+| Name            | Length (bits) |
+| --------------- | ------------- |
+| Sum             | 1             |
+| C<sub>out</sub> | 1             |
 
 #### 16-Bit Adder
 
@@ -127,17 +131,17 @@ Last four bits of the ALUOp indicate ALU operations
 
 ##### Input Pins
 
-| Name | Length (bits) | Description |
-| ---- | ------------- | ----------- |
-| A    | 16            |             |
-| B    | 16            |             |
+| Name | Length (bits) |
+| ---- | ------------- |
+| A    | 16            |
+| B    | 16            |
 
 ##### Output Pins
 
-| Name            | Length (bits) | Description |
-| --------------- | ------------- | ----------- |
-| Sum             | 16            |             |
-| C<sub>out</sub> | 1             |             |
+| Name            | Length (bits) |
+| --------------- | ------------- |
+| Sum             | 16            |
+| C<sub>out</sub> | 1             |
 
 ## Control Unit
 
@@ -153,12 +157,12 @@ Last four bits of the ALUOp indicate ALU operations
 
 | Name     | Length (bits) | Description                                                                                 |
 | -------- | ------------- | ------------------------------------------------------------------------------------------- |
-| RegDst   | 1             | Chooses between rt and rt to perform operations with                                        |
+| RegDst   | 1             | Chooses write address of Register File, between rt and rd                                   |
 | RegWrite | 1             | Enables writing on registers                                                                |
-| ALUOp    | 6             | ALU operation code, sad                                                                     |
+| ALUOp    | 6             | ALU operation code (check ALU section for more information)                                 |
 | ALUSrc   | 1             | Determines whether the second input to the ALU will be from Immediate region or Read Data 2 |
-| MemToReg | 1             |                                                                                             |
-| MemRead  | 1             |                                                                                             |
-| MemWrite | 1             |                                                                                             |
-| Branch   | 1             |                                                                                             |
-| PCSrc    | 1             |                                                                                             |
+| MemToReg | 1             | Determines whether the write data will be taken direclty from ALU result or the data memory |
+| MemRead  | 1             | Enables data memory reads                                                                   |
+| MemWrite | 1             | Enables data memory writes                                                                  |
+| Branch   | 1             | Indicates that PC value may come from a conditional branch operation                        |
+| PCSrc    | 1             | Indicates that PC value will come from an unconditional branch operation                    |
