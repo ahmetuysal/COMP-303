@@ -201,3 +201,19 @@ Last four bits of the ALUOp indicate ALU operations
 | 001101 | 1      | 0        | 001101 | 1      | 0        | 0       | 0        | 1      | 0     |
 | 001110 | 1      | 0        | 001110 | 1      | 0        | 0       | 0        | 1      | 1     |
 | 001111 | 1      | 0        | 001111 | 1      | 0        | 0       | 0        | 0      | 0     |
+
+## Testing the CPU
+
+### Vector Addition & Scaling
+
+#### Initial State
+
+![Vector Addition & Scaling](images/reg_init.png "Initial Register File State")
+![Vector Addition & Scaling](images/mem_init.png "Initial Memory File State")
+
+#### Final State
+
+![Vector Addition & Scaling](images/reg_final.png "Register File State after Program Execution")
+![Vector Addition & Scaling](images/mem_final.png "Memory File State after Program Execution")
+
+### Squaring
